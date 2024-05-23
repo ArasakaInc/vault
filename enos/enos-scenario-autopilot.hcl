@@ -503,10 +503,8 @@ scenario "autopilot" {
   }
 
   step "verify_undo_logs_status" {
-    skip_step = true
-    # NOTE: temporarily disable undo logs checking until it is fixed. See VAULT-20259
-    # skip_step = semverconstraint(var.vault_product_version, "<1.13.0-0")
-    module = module.vault_verify_undo_logs
+    skip_step = semverconstraint(var.vault_product_version, "<1.13.0-0")
+    module    = module.vault_verify_undo_logs
     depends_on = [
       step.create_vault_cluster_upgrade_targets,
       step.remove_old_nodes,
